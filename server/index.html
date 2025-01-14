@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Products</h1>
+    <button onclick="getData()">Get Products</button>
+    <hr>
+    <button onclick="postData()">Add Products</button>
+    <hr>
+    <button onclick="patchData()">Update Products</button>
+    <hr>
+    <button onclick="daleteData()">delete Products</button>
+    <hr>
+    <h1>Item</h1>
+    <button onclick="getItem()">Get Item</button>
+    <hr>
+    <button onclick="postItem()">Add Item</button>
+    <hr>
+    <button onclick="patchItem()">Update Item</button>
+    <hr>
+    <button onclick="deleteItem()">delete Item</button>
+    <hr>
+    <div class="images"></div>
+    <script>
+        //
+        /*
+        
+            1. Mystic Oud - $85: A luxurious fragrance with deep oud and amber notes.
+
+
+        2. Floral Bliss - $60: A light, refreshing scent with hints of jasmine and rose.
+
+
+        3. Citrus Spark - $50: A vibrant blend of citrus and fresh green accords.
+
+
+        4. Vanilla Noir - $75: A warm and sensual vanilla-based fragrance.
+
+
+        5. Ocean Breeze - $55: A crisp, aquatic scent inspired by the sea.
+
+
+        6. Spicy Amber - $90: A bold and exotic fragrance with spicy undertones.
+
+2. Hydrating Foundation - $35: Lightweight foundation with a natural finish.
+        */
+        //
+        // get Data
+        const getData=()=>{
+            fetch('http://localhost:4000/products')
+            .then(res=>res.json())
+            .then(data=>{
+                console.log(data );
+                const img=data[0].img;
+                console.log(img );
+
+                let html="<img src="+img+" />";
+                document.querySelector('.images').innerHTML=html;
+            }).catch(error=>console.error(error));
+        }
+
+        // post Data
+        const postData=()=>{
+            fetch('http://localhost:4000/products',{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body:JSON.stringify({
+                    name:"Nail Polish Set",
+                    price:28,
+                    descripe:"A set of 5 trendy colors for every occasion.",
+                    itemId:"67819c443d5d024ab688e52f",
+                    img:"images/perfum6.jfif"
+                })
+            })
+            .then(res=>res.json())
+            .then(data=>{
+                console.log('data',data);
+            }).catch(error=>console.error(error));
+        }
+
+        // update ptoduct
+        const patchData=()=>{
+            fetch('http://localhost:4000/products/677d7cae30de4ce552263148',{
+                method:'PATCH',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    newName:'Toshipa A3 pro',
+                    newPrice:200
+                })
+            })
+            .then(res=>res.json())
+            .then(result=>{
+                console.log(result);
+            }).catch(err=>{console.error(err)});
+        }
+
+        // update ptoduct
+        const daleteData=()=>{
+            fetch('http://localhost:4000/products',{
+                method:'DELETE',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    _id:'67818b1ab8c59362ddcff85a'
+                })
+            })
+            .then(res=>res.json())
+            .then(result=>{
+                console.log(result);
+            }).catch(err=>{console.error(err)});
+        }
+
+        // Item
+
+         // get Data
+         const getItem=()=>{
+            fetch('http://localhost:4000/items')
+            .then(res=>res.json())
+            .then(data=>{
+                console.log(data);
+            }).catch(error=>console.error(error));
+        }
+
+        // post Data
+        const postItem=()=>{
+            fetch('http://localhost:4000/items',{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body:JSON.stringify({
+                    name:"Perfumes",
+                })
+            })
+            .then(res=>res.json())
+            .then(data=>{
+                console.log('data',data);
+            }).catch(error=>console.error(error));
+        }
+
+        // update ptoduct
+        const patchItem=()=>{
+            fetch('http://localhost:4000/items/677d7cae30de4ce552263148',{
+                method:'PATCH',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    newName:'Toshipa A3 pro',
+                    newPrice:200
+                })
+            })
+            .then(res=>res.json())
+            .then(result=>{
+                console.log(result);
+            }).catch(err=>{console.error(err)});
+        }
+
+        // update ptoduct
+        const deleteItem=()=>{
+            fetch('http://localhost:4000/items',{
+                method:'DELETE',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    _id:'677ced19795b10a076d12c20'
+                })
+            })
+            .then(res=>res.json())
+            .then(result=>{
+                console.log(result);
+            }).catch(err=>{console.error(err)});
+        }
+    </script>
+</body>
+</html>
